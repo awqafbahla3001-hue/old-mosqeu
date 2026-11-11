@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>المساجد الأثرية في عُمان</title>
+<meta name="description" content="موقع يوثّق المساجد الأثرية في سلطنة عُمان: تاريخها، من بناها، وأعمال ترميمها.">
+<style>
+/* ===== الألوان: مأخوذة من مواد المسجد العُماني القديم (الطين، الجص، الصاروج، خزف المحاريب) ===== */
+:root{
+  --mud:#4b3324;        /* جدار الطين */
+  --mud-deep:#35231a;
+  --plaster:#f3ecde;    /* الجص */
+  --sarooj:#dccbab;     /* الصاروج */
+  --palm:#2f4b3b;       /* النخيل */
+  --bowl:#1f5582;       /* أزرق الأواني الخزفية في المحاريب */
+  --brass:#a9833a;
+  --ink:#2a1d15;
+  --head:"Aref Ruqaa","Amiri","Sakkal Majalla","Traditional Arabic","Geeza Pro","Noto Naskh Arabic","Times New Roman",serif;
+  --body:"Segoe UI","Tahoma","Noto Sans Arabic","Geeza Pro",sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--plaster);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.9}
+h1,h2,h3{font-family:var(--head);line-height:1.35;margin:0;font-weight:700}
+p{margin:0 0 .9em}
+img,video{max-width:100%;display:block}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--bowl);outline-offset:3px}
+.wrap{max-width:1120px;margin-inline:auto;padding-inline:20px}
+.hidden{display:none!important}
+
+/* ===== الشريط العلوي ===== */
+.top{position:sticky;top:0;z-index:20;background:var(--mud-deep);color:var(--plaster)}
+.top .wrap{display:flex;align-items:center;gap:18px;min-height:58px;flex-wrap:wrap}
+.brand{font-family:var(--head);font-size:1.35rem;color:var(--plaster);text-decoration:none;margin-inline-end:auto}
+.top nav{display:flex;gap:4px;flex-wrap:wrap}
+.top nav a{color:var(--sarooj);text-decoration:none;padding:6px 12px;border-radius:4px}
+.top nav a:hover{background:var(--mud);color:#fff}
+
+/* ===== الواجهة ===== */
+.hero{background:var(--mud);color:var(--plaster);padding:56px 0 0}
+.hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+.hero h1{font-size:clamp(2.6rem,6.2vw,4.9rem);line-height:1.25;margin-bottom:22px}
+.hero p{font-size:1.12rem;max-width:34em;color:#eadfca}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+.btn{display:inline-block;border:2px solid var(--brass);background:var(--brass);color:#fff;padding:9px 22px;border-radius:4px;text-decoration:none;font-weight:600}
+.btn:hover{filter:brightness(1.08)}
+.btn.ghost{background:transparent;color:inherit}
+.btn.blue{background:var(--bowl);border-color:var(--bowl)}
+.btn.small{padding:4px 12px;font-size:.9rem;border-width:1px}
+.btn.danger{background:#8c2f24;border-color:#8c2f24}
+/* النافذة المقوّسة: العنصر المميز للموقع */
+.arch{border-radius:999px 999px 0 0;overflow:hidden;background:var(--mud-deep);position:relative}
+.hero-arch{aspect-ratio:4/5;border:10px solid var(--plaster);border-bottom:0;box-shadow:0 0 0 3px var(--brass)}
+.hero-arch svg,.hero-arch img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+/* شرفات السطح: فاصل بين الأقسام */
+.battlement{height:16px;background:linear-gradient(90deg,var(--plaster) 50%,transparent 50%) 0 0/44px 16px repeat-x;margin-top:48px}
+.battlement.on-light{background-image:linear-gradient(90deg,var(--mud) 50%,transparent 50%);margin-top:0}
+
+/* شريط الصور */
+.strip{background:var(--plaster);padding:26px 0 6px}
+.strip-row{display:flex;gap:14px;overflow-x:auto;padding:4px 20px 16px;scroll-snap-type:x mandatory}
+.strip-row button{flex:0 0 190px;scroll-snap-align:start;border:0;padding:0;background:none;text-align:center}
+.strip-row .arch{aspect-ratio:3/4;border:4px solid var(--sarooj)}
+.strip-row .arch img{width:100%;height:100%;object-fit:cover}
+.strip-row span{display:block;font-family:var(--head);font-size:1.05rem;margin-top:6px}
+
+/* ===== الأقسام ===== */
+section{padding:64px 0}
+.sec-title{font-size:clamp(1.9rem,4vw,2.7rem);margin-bottom:10px}
+.sec-lead{max-width:44em;margin-bottom:34px;color:#5a4636}
+.dark{background:var(--mud);color:var(--plaster)}
+.dark .sec-lead{color:#e3d6bf}
+
+/* الخط الزمني */
+.timeline{list-style:none;margin:0;padding:0;border-inline-start:3px solid var(--brass);margin-inline-start:10px}
+.timeline li{position:relative;padding:0 26px 30px 0}
+.timeline li::before{content:"";position:absolute;inset-inline-start:-12px;top:.55em;width:15px;height:15px;border-radius:50%;background:var(--plaster);border:4px solid var(--bowl)}
+.timeline time{font-family:var(--head);font-size:1.45rem;color:var(--bowl);display:block}
+.timeline h3{font-size:1.3rem}
+.timeline button{background:none;border:0;padding:0;color:var(--palm);text-decoration:underline;font-weight:600}
+
+/* أدوات البحث */
+.tools{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:30px;align-items:center}
+.tools input[type=search],.tools select{padding:9px 12px;border:1px solid var(--sarooj);border-radius:4px;background:var(--plaster);color:var(--ink);min-width:200px}
+.tools label{display:flex;gap:6px;align-items:center}
+
+/* نوافذ المساجد */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(235px,1fr));gap:34px 26px}
+.win{background:none;border:0;padding:0;text-align:center;color:inherit;display:block;width:100%}
+.win .arch{aspect-ratio:3/4;border:6px solid var(--plaster);border-bottom-width:14px;transition:transform .2s}
+.win:hover .arch{transform:translateY(-4px)}
+.win .arch img{width:100%;height:100%;object-fit:cover}
+.win h3{font-size:1.4rem;margin-top:12px}
+.win .place{color:var(--sarooj);margin:0}
+.win .built{font-size:.92rem;margin:0;opacity:.85}
+.tag{display:inline-block;background:var(--palm);color:#fff;font-size:.8rem;padding:1px 10px;border-radius:99px;margin-top:6px}
+.empty{padding:30px;border:2px dashed var(--sarooj);text-align:center;border-radius:6px}
+
+/* الترميم */
+.resto{display:grid;gap:40px}
+.resto article{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center;background:#fbf7ee;border:1px solid var(--sarooj);padding:22px;border-radius:6px}
+.resto h3{font-size:1.6rem;margin-bottom:6px}
+.resto dl{margin:0 0 12px}
+.resto dt{font-weight:700;color:var(--palm);display:inline}
+.resto dd{display:inline;margin:0}
+.resto dd::after{content:"";display:block}
+.ba{position:relative;aspect-ratio:4/3;overflow:hidden;border-radius:4px;background:var(--mud-deep);--p:50%}
+.ba>div{position:absolute;inset:0}
+.ba>div>*{width:100%;height:100%;object-fit:cover}
+.ba .before{clip-path:inset(0 0 0 calc(100% - var(--p)))}
+.ba .lab{position:absolute;top:8px;background:rgba(0,0,0,.6);color:#fff;font-size:.8rem;padding:0 10px;border-radius:3px;width:auto;height:auto}
+.ba .lab.b{right:8px}.ba .lab.a{left:8px}
+.ba-range{width:100%;margin-top:8px;accent-color:var(--bowl)}
+
+/* المعرض */
+.gallery{columns:4 220px;column-gap:14px}
+.gallery figure{margin:0 0 14px;break-inside:avoid;background:#fbf7ee;border:1px solid var(--sarooj);border-radius:4px;overflow:hidden}
+.gallery button{border:0;padding:0;background:none;display:block;width:100%}
+.gallery figcaption{padding:6px 10px;font-size:.88rem}
+.videos{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px;margin-top:26px}
+.videos video{width:100%;background:#000;border-radius:4px}
+
+/* مكان الصورة أو الفيديو قبل الرفع */
+.ph{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;width:100%;height:100%;min-height:150px;background:repeating-linear-gradient(45deg,#5d4230 0 14px,#553b2b 14px 28px);color:var(--sarooj);text-align:center;padding:12px;font-size:.82rem}
+.ph b{font-family:var(--head);font-size:1.05rem;color:var(--plaster)}
+.ph code{direction:ltr;background:rgba(0,0,0,.3);padding:0 6px;border-radius:3px;word-break:break-all}
+
+/* ===== النوافذ المنبثقة ===== */
+dialog{border:0;padding:0;background:var(--plaster);color:var(--ink);width:min(880px,94vw);max-height:92vh;border-radius:6px;box-shadow:0 0 0 4px var(--brass)}
+dialog::backdrop{background:rgba(30,18,12,.78)}
+.dlg-head{position:sticky;top:0;z-index:2;background:var(--mud-deep);color:var(--plaster);display:flex;align-items:center;gap:12px;padding:12px 20px}
+.dlg-head h2{font-size:1.6rem;margin-inline-end:auto}
+.x{background:none;border:1px solid var(--sarooj);color:var(--plaster);border-radius:4px;padding:2px 14px}
+.dlg-body{padding:22px}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin:0 0 20px}
+.facts div{background:#fbf7ee;border:1px solid var(--sarooj);border-top:4px solid var(--bowl);padding:10px 14px}
+.facts dt{font-size:.85rem;color:#6d5847}
+.facts dd{margin:0;font-family:var(--head);font-size:1.2rem}
+.dlg-body h3{font-size:1.35rem;color:var(--palm);margin:20px 0 6px}
+.m-gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px}
+.m-gallery button{border:0;padding:0;background:none;aspect-ratio:4/3;overflow:hidden;border-radius:4px}
+.m-gallery img{width:100%;height:100%;object-fit:cover}
+.qr-box{display:flex;gap:20px;align-items:center;flex-wrap:wrap;background:#fbf7ee;border:1px solid var(--sarooj);padding:16px;margin-top:8px}
+.qr-box canvas{background:#fff;padding:0;width:170px;height:170px;image-rendering:pixelated}
+.qr-box .url{direction:ltr;text-align:right;font-size:.82rem;word-break:break-all;color:#6d5847}
+.note{background:#fff4d6;border:1px solid #e0c36e;padding:8px 12px;border-radius:4px;font-size:.92rem}
+#lightbox{background:#000;width:auto;max-width:96vw}
+#lightbox img{max-height:86vh;margin:auto}
+#lightbox p{color:#fff;text-align:center;margin:0;padding:8px}
+
+/* ===== لوحة المشرف ===== */
+.tabs{display:flex;gap:4px;border-bottom:2px solid var(--sarooj);margin-bottom:18px;flex-wrap:wrap}
+.tabs button{background:none;border:0;padding:8px 16px;border-bottom:4px solid transparent;font-weight:600}
+.tabs button[aria-selected=true]{border-color:var(--bowl);color:var(--bowl)}
+.form{display:grid;grid-template-columns:1fr 1fr;gap:12px 16px}
+.form label{display:block;font-weight:600;font-size:.92rem}
+.form .full{grid-column:1/-1}
+.form input[type=text],.form input[type=url],.form input[type=number],.form input[type=password],.form select,.form textarea{width:100%;padding:8px 10px;border:1px solid #bfae8d;border-radius:4px;background:#fff;font-weight:400}
+.form textarea{min-height:90px;resize:vertical}
+.form small{font-weight:400;color:#6d5847;display:block}
+.form fieldset{grid-column:1/-1;border:1px solid var(--sarooj);padding:12px 14px;display:grid;grid-template-columns:1fr 1fr;gap:12px 16px;margin:0}
+.form legend{font-family:var(--head);font-size:1.15rem;padding:0 8px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+table{width:100%;border-collapse:collapse}
+td,th{padding:8px;border-bottom:1px solid var(--sarooj);text-align:start}
+td:last-child{white-space:nowrap}
+.msg{color:var(--palm);font-weight:600}
+.err{color:#8c2f24;font-weight:600}
+
+footer{background:var(--mud-deep);color:var(--sarooj);padding:40px 0}
+footer .wrap{display:flex;gap:30px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+footer canvas{width:120px;height:120px;background:#fff;image-rendering:pixelated}
+footer h2{color:var(--plaster);font-size:1.6rem}
+
+@media (max-width:800px){
+  .hero .wrap,.resto article,.form,.form fieldset{grid-template-columns:1fr}
+  .hero-arch{max-width:330px;margin-inline:auto;width:100%}
+  section{padding:44px 0}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.win .arch{transition:none}}
+@media print{.top,footer .btn{display:none}}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     بيانات الموقع: كل المساجد والإعدادات هنا.
+     يمكن تعديلها من لوحة المشرف ثم «تنزيل نسخة محدّثة من الموقع».
+     الصور توضع في مجلد images والفيديو في مجلد videos بجانب هذا الملف.
+     ============================================================ -->
+<script type="application/json" id="site-data">
+{
+ "updatedAt": 0,
+ "settings": {
+  "intro": "منذ السنة السادسة للهجرة والمساجد تُبنى في عُمان بالطين والحجر والصاروج. هذا الموقع يوثّق أقدمها: متى بُنيت، ومن بناها، وكيف رُمّمت لتبقى شاهدة على تاريخ البلاد.",
+  "hero": "images/hero.jpg",
+  "baseUrl": "",
+  "passHash": "",
+  "show": {"history": true, "restoration": true, "gallery": true}
+ },
+ "mosques": [
+  {
+   "id": "almidmar",
+   "name": "مسجد المضمار",
+   "governorate": "الداخلية",
+   "wilayat": "سمائل",
+   "place": "",
+   "built": "نحو السنة 6 هـ (627 م)",
+   "sortYear": 627,
+   "builder": "الصحابي مازن بن غضوبة",
+   "history": "يُعرف أيضًا بمسجد مازن بن غضوبة، ويُعدّ أول مسجد بُني في عُمان. بناه مازن بن غضوبة، أول من أسلم من أهل عُمان، بعد عودته من لقاء النبي صلى الله عليه وسلم في المدينة.",
+   "features": "تُضاف لاحقًا",
+   "images": ["images/almidmar-1.jpg", "images/almidmar-2.jpg"],
+   "video": "",
+   "restored": true,
+   "restoration": {"date": "1979 م ثم 2017 م", "by": "تُضاف لاحقًا", "work": "جُدّد المسجد ورُمّم مرتين في العصر الحديث مع المحافظة على موقعه التاريخي.", "before": "images/almidmar-before.jpg", "after": "images/almidmar-after.jpg"}
+  },
+  {
+   "id": "alshawadhna",
+   "name": "مسجد الشواذنة",
+   "governorate": "الداخلية",
+   "wilayat": "نزوى",
+   "place": "حارة العقر",
+   "built": "يُذكر أنه أُنشئ في السنة 7 هـ",
+   "sortYear": 628,
+   "builder": "تُضاف لاحقًا",
+   "history": "يقع في حارة العقر قرب قلعة نزوى، ويوصف بأنه ثاني أقدم مسجد في عُمان. على جدرانه كتابات قديمة تؤرّخ لأحداث مرّت بها البلاد.",
+   "features": "كتابات جدارية تاريخية. بقية التفاصيل تُضاف لاحقًا.",
+   "images": ["images/alshawadhna-1.jpg"],
+   "video": "",
+   "restored": false,
+   "restoration": {"date": "", "by": "", "work": "", "before": "", "after": ""}
+  },
+  {
+   "id": "suaal",
+   "name": "جامع سعال",
+   "governorate": "الداخلية",
+   "wilayat": "نزوى",
+   "place": "حارة سعال",
+   "built": "قبل القرن الثالث الهجري، ومحرابه سنة 650 هـ (1252 م)",
+   "sortYear": 800,
+   "builder": "تُضاف لاحقًا",
+   "history": "من أقدم جوامع عُمان، وتذكر كتب التاريخ أن بناءه الأول يعود إلى ما قبل القرن الثالث الهجري. أُضيف إليه محرابه الجصي سنة 650 هـ.",
+   "features": "محرابه أقدم المحاريب الجصية المزخرفة القائمة في عُمان، وفيه كتابة بالخط الكوفي المزهّر على المحراب وجدار القبلة.",
+   "images": ["images/suaal-1.jpg", "images/suaal-mihrab.jpg"],
+   "video": "",
+   "restored": true,
+   "restoration": {"date": "تُضاف لاحقًا", "by": "تُضاف لاحقًا", "work": "رُمّم الجامع ومحرابه الجصي فاحتفظ بشكله ونقوشه القديمة.", "before": "images/suaal-before.jpg", "after": "images/suaal-after.jpg"}
+  },
+  {
+   "id": "qarnat-qaid",
+   "name": "مسجد قرنة قائد",
+   "governorate": "الداخلية",
+   "wilayat": "سمائل",
+   "place": "قرب حصن سمائل",
+   "built": "عهد النباهنة",
+   "sortYear": 1300,
+   "builder": "تُضاف لاحقًا",
+   "history": "ثاني أقدم مسجد في ولاية سمائل. كان مقرًّا للصلاة ودروس العلم وتحفيظ القرآن الكريم.",
+   "features": "تُضاف لاحقًا",
+   "images": ["images/qarnat-qaid-1.jpg"],
+   "video": "",
+   "restored": false,
+   "restoration": {"date": "", "by": "", "work": "", "before": "", "after": ""}
+  },
+  {
+   "id": "bahla-jami",
+   "name": "جامع بهلاء التاريخي",
+   "governorate": "الداخلية",
+   "wilayat": "بهلاء",
+   "place": "",
+   "built": "تُضاف لاحقًا",
+   "sortYear": 1400,
+   "builder": "تُضاف لاحقًا",
+   "history": "من أبرز المعالم الدينية في ولاية بهلاء المدرجة في قائمة التراث العالمي. كان مركزًا لتدريس علوم الشريعة واللغة العربية، وعلى جدرانه كتابات تاريخية وأدبية.",
+   "features": "محراب جصي كبير يوصف بأنه أطول محراب مزخرف في المساجد العُمانية القديمة.",
+   "images": ["images/bahla-jami-1.jpg", "images/bahla-jami-mihrab.jpg"],
+   "video": "videos/bahla-jami.mp4",
+   "restored": true,
+   "restoration": {"date": "أُعيد افتتاحه بعد الترميم (نُشر الخبر في مارس 2025 م)", "by": "وزارة التراث والسياحة", "work": "رُمّم الجامع وأُعيد افتتاحه للزوار بعد إغلاق دام نحو خمسين عامًا.", "before": "images/bahla-jami-before.jpg", "after": "images/bahla-jami-after.jpg"}
+  },
+  {
+   "id": "alwadi-alaala",
+   "name": "مسجد الوادي الأعلى",
+   "governorate": "الداخلية",
+   "wilayat": "بهلاء",
+   "place": "",
+   "built": "تُضاف لاحقًا",
+   "sortYear": 1500,
+   "builder": "تُضاف لاحقًا",
+   "history": "أحد المساجد التاريخية في ولاية بهلاء. تُضاف نبذته التاريخية لاحقًا.",
+   "features": "تُضاف لاحقًا",
+   "images": ["images/alwadi-alaala-1.jpg"],
+   "video": "",
+   "restored": true,
+   "restoration": {"date": "بدأ عام 2025 م وانتهى في فبراير 2026 م", "by": "وزارة التراث والسياحة", "work": "معالجة شاملة للجوانب المعمارية والإنشائية للمسجد بما يضمن سلامة المبنى واستمرار استخدامه.", "before": "images/alwadi-alaala-before.jpg", "after": "images/alwadi-alaala-after.jpg"}
+  },
+  {
+   "id": "alawaina",
+   "name": "مسجد العوينة",
+   "governorate": "شمال الشرقية",
+   "wilayat": "وادي بني خالد",
+   "place": "",
+   "built": "تُضاف لاحقًا",
+   "sortYear": 1550,
+   "builder": "تُضاف لاحقًا",
+   "history": "من المعالم التراثية في ولاية وادي بني خالد، ومثال على العمارة التقليدية التي اعتمدت على مواد البيئة المحلية.",
+   "features": "محرابه الأصلي المزخرف محفوظ في المتحف الوطني.",
+   "images": ["images/alawaina-1.jpg"],
+   "video": "",
+   "restored": true,
+   "restoration": {"date": "تُضاف لاحقًا", "by": "وزارة التراث والسياحة", "work": "رُمّم المسجد وأُعيدت صناعة محرابه اعتمادًا على المحراب الأصلي المعروض في المتحف الوطني.", "before": "images/alawaina-before.jpg", "after": "images/alawaina-after.jpg"}
+  }
+ ]
+}
+</script>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#home">المساجد الأثرية في عُمان</a>
+    <nav aria-label="أقسام الموقع">
+      <a href="#history" data-sec="history">التاريخ</a>
+      <a href="#mosques">المساجد</a>
+      <a href="#restoration" data-sec="restoration">الترميم</a>
+      <a href="#gallery" data-sec="gallery">الصور والفيديو</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<div class="hero" id="home">
+  <div class="wrap">
+    <div>
+      <h1>المساجد الأثرية في عُمان</h1>
+      <p id="intro"></p>
+      <div class="hero-actions">
+        <a class="btn" href="#mosques">تصفّح المساجد</a>
+        <a class="btn ghost" href="#history" data-sec="history">اقرأ التاريخ</a>
+      </div>
+    </div>
+    <div class="arch hero-arch">
+      <!-- رسم بديل يظهر إلى أن تُرفع الصورة images/hero.jpg -->
+      <svg viewBox="0 0 400 500" role="img" aria-label="رسم لمسجد عُماني قديم من الطين">
+        <rect width="400" height="500" fill="#e9d3a3"/>
+        <circle cx="300" cy="120" r="46" fill="#f6e7bf"/>
+        <path d="M0 330 Q90 270 180 310 T400 290 V500 H0Z" fill="#b98f5e"/>
+        <g fill="#2f4b3b"><rect x="52" y="250" width="7" height="110"/><path d="M55 250c-40-20-55 0-60 14 22-12 40-8 60-6zM55 250c40-22 58-4 64 10-22-10-42-8-64-4zM55 250c-18-36-44-34-56-26 24 2 40 10 56 26zM55 250c16-38 44-38 58-30-24 2-42 12-58 30z"/></g>
+        <g fill="#7a5638">
+          <rect x="110" y="270" width="230" height="150"/>
+          <path d="M110 270v-14h18v14zM146 270v-14h18v14zM182 270v-14h18v14zM218 270v-14h18v14zM254 270v-14h18v14zM290 270v-14h18v14zM322 270v-14h18v14z"/>
+          <path d="M250 256a30 30 0 0 1 60 0z"/>
+        </g>
+        <path d="M205 420v-70a22 22 0 0 1 44 0v70z" fill="#35231a"/>
+        <g fill="#35231a"><path d="M140 330v-18a9 9 0 0 1 18 0v18zM290 330v-18a9 9 0 0 1 18 0v18z"/></g>
+        <path d="M96 420h258l14 16H82z" fill="#5d4230"/>
+        <rect y="436" width="400" height="64" fill="#a37a4c"/>
+      </svg>
+      <img id="heroImg" alt="مسجد أثري في سلطنة عُمان" onerror="this.remove()">
+    </div>
+  </div>
+  <div class="battlement" aria-hidden="true"></div>
+</div>
+
+<div class="strip" aria-label="شريط صور المساجد">
+  <div class="strip-row" id="strip"></div>
+</div>
+
+<section id="history">
+  <div class="wrap">
+    <h2 class="sec-title">قِدم المساجد في عُمان</h2>
+    <p class="sec-lead">دخل الإسلام عُمان في حياة النبي صلى الله عليه وسلم، فبُنيت مساجدها الأولى في السنوات الهجرية الأولى. الخط الزمني يرتّب المساجد من الأقدم إلى الأحدث.</p>
+    <ol class="timeline" id="timeline"></ol>
+  </div>
+</section>
+
+<div class="battlement on-light" aria-hidden="true"></div>
+<section id="mosques" class="dark">
+  <div class="wrap">
+    <h2 class="sec-title">نوافذ على المساجد</h2>
+    <p class="sec-lead">اضغط على أي نافذة لتقرأ تاريخ المسجد ومن بناه، وتشاهد صوره ورمز QR الخاص به.</p>
+    <div class="tools">
+      <input type="search" id="q" placeholder="ابحث باسم المسجد أو الولاية" aria-label="بحث">
+      <select id="gov" aria-label="المحافظة"></select>
+      <label><input type="checkbox" id="onlyRest"> المرمّمة فقط</label>
+    </div>
+    <div class="grid" id="grid"></div>
+  </div>
+</section>
+
+<section id="restoration">
+  <div class="wrap">
+    <h2 class="sec-title">ترميم المساجد</h2>
+    <p class="sec-lead">مساجد أُعيدت إليها الحياة. حرّك المؤشر تحت الصورة للمقارنة بين حال المسجد قبل الترميم وبعده.</p>
+    <div class="resto" id="resto"></div>
+  </div>
+</section>
+
+<section id="gallery" style="background:#eadfca">
+  <div class="wrap">
+    <h2 class="sec-title">الصور والفيديو</h2>
+    <p class="sec-lead">اضغط على الصورة لتكبيرها.</p>
+    <div class="gallery" id="gal"></div>
+    <div class="videos" id="vids"></div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <h2>المساجد الأثرية في عُمان</h2>
+      <p>المعلومات التاريخية أولية ويُرجى مراجعتها من مصادرها قبل النشر.</p>
+      <button class="btn ghost small" id="adminBtn">دخول المشرف</button>
+    </div>
+    <div style="text-align:center">
+      <canvas id="siteQr" width="10" height="10" aria-label="رمز QR للموقع"></canvas>
+      <div id="siteQrNote" style="font-size:.85rem">رمز الموقع</div>
+    </div>
+  </div>
+</footer>
+
+<!-- نافذة المسجد -->
+<dialog id="mosqueDlg" aria-labelledby="mTitle">
+  <div class="dlg-head"><h2 id="mTitle"></h2><button class="x" data-close>إغلاق</button></div>
+  <div class="dlg-body" id="mBody"></div>
+</dialog>
+
+<!-- تكبير الصورة -->
+<dialog id="lightbox"><button class="x" data-close style="margin:8px">إغلاق</button><div id="lbBody"></div><p id="lbCap"></p></dialog>
+
+<!-- دخول المشرف -->
+<dialog id="loginDlg" aria-labelledby="lgT" style="width:min(420px,94vw)">
+  <div class="dlg-head"><h2 id="lgT">دخول المشرف</h2><button class="x" data-close>إغلاق</button></div>
+  <form class="dlg-body" id="loginForm">
+    <div class="form" style="grid-template-columns:1fr">
+      <label>كلمة المرور<input type="password" id="pass" autocomplete="current-password" required></label>
+      <p class="err hidden" id="loginErr">كلمة المرور غير صحيحة. حاول مرة أخرى.</p>
+      <button class="btn blue" type="submit">دخول</button>
+    </div>
+  </form>
+</dialog>
+
+<!-- لوحة المشرف -->
+<dialog id="adminDlg" aria-labelledby="adT" style="width:min(980px,96vw)">
+  <div class="dlg-head"><h2 id="adT">لوحة المشرف</h2><button class="x" data-close>إغلاق</button></div>
+  <div class="dlg-body">
+    <div class="tabs" role="tablist">
+      <button role="tab" data-tab="tList" aria-selected="true">المساجد</button>
+      <button role="tab" data-tab="tEdit" aria-selected="false">إضافة مسجد</button>
+      <button role="tab" data-tab="tSet" aria-selected="false">إعدادات الموقع</button>
+      <button role="tab" data-tab="tData" aria-selected="false">حفظ ونشر</button>
+    </div>
+    <p class="msg" id="adMsg" role="status"></p>
+
+    <div id="tList"><table><thead><tr><th>المسجد</th><th>الولاية</th><th>مرمّم</th><th>إجراءات</th></tr></thead><tbody id="adRows"></tbody></table></div>
+
+    <form id="tEdit" class="form hidden">
+      <input type="hidden" id="f_id">
+      <label>اسم المسجد<input type="text" id="f_name" required></label>
+      <label>المحافظة<select id="f_governorate"></select></label>
+      <label>الولاية<input type="text" id="f_wilayat" required></label>
+      <label>القرية أو الحارة<input type="text" id="f_place"></label>
+      <label>تاريخ البناء<input type="text" id="f_built" placeholder="مثال: القرن العاشر الهجري"></label>
+      <label>سنة ميلادية تقريبية للترتيب في الخط الزمني<input type="number" id="f_sortYear" placeholder="مثال: 1650"></label>
+      <label class="full">من بناه<input type="text" id="f_builder"></label>
+      <label class="full">تاريخ المسجد وقصته<textarea id="f_history"></textarea></label>
+      <label class="full">المميزات المعمارية<textarea id="f_features"></textarea></label>
+      <label class="full">الصور (مسار واحد في كل سطر)
+        <textarea id="f_images" dir="ltr" placeholder="images/name-1.jpg"></textarea>
+        <small>اختر الصور من جهازك لتُكتب أسماؤها هنا، ثم ارفع الملفات نفسها في مجلد images بجانب index.html.</small>
+        <input type="file" id="pickImgs" accept="image/*" multiple>
+      </label>
+      <label class="full">الفيديو
+        <input type="text" id="f_video" dir="ltr" placeholder="videos/name.mp4">
+        <small>ارفع ملف الفيديو في مجلد videos.</small>
+        <input type="file" id="pickVid" accept="video/*">
+      </label>
+      <fieldset>
+        <legend><label style="display:inline"><input type="checkbox" id="f_restored"> هذا المسجد مرمّم</label></legend>
+        <label>تاريخ الترميم<input type="text" id="f_rdate"></label>
+        <label>الجهة المنفذة<input type="text" id="f_rby"></label>
+        <label class="full">وصف أعمال الترميم<textarea id="f_rwork"></textarea></label>
+        <label>صورة قبل الترميم<input type="text" id="f_rbefore" dir="ltr" placeholder="images/name-before.jpg"></label>
+        <label>صورة بعد الترميم<input type="text" id="f_rafter" dir="ltr" placeholder="images/name-after.jpg"></label>
+      </fieldset>
+      <div class="full row"><button class="btn blue" type="submit">حفظ المسجد</button><button class="btn ghost" type="button" id="cancelEdit">إلغاء</button></div>
+    </form>
+
+    <form id="tSet" class="form hidden">
+      <label class="full">النبذة في الواجهة<textarea id="s_intro"></textarea></label>
+      <label>صورة الواجهة<input type="text" id="s_hero" dir="ltr"></label>
+      <label>رابط الموقع بعد رفعه (لرموز QR)<input type="url" id="s_base" dir="ltr" placeholder="https://example.com/index.html"></label>
+      <div class="full row">
+        <label><input type="checkbox" id="s_history"> إظهار قسم التاريخ</label>
+        <label><input type="checkbox" id="s_restoration"> إظهار قسم الترميم</label>
+        <label><input type="checkbox" id="s_gallery"> إظهار قسم الصور والفيديو</label>
+      </div>
+      <label>كلمة مرور جديدة<input type="password" id="s_pass" autocomplete="new-password"><small>اتركها فارغة للإبقاء على الحالية.</small></label>
+      <div class="full"><button class="btn blue" type="submit">حفظ الإعدادات</button></div>
+    </form>
+
+    <div id="tData" class="hidden">
+      <p class="note">التعديلات محفوظة في هذا المتصفح فقط. ليراها الزوار: نزّل النسخة المحدّثة وارفعها مكان ملف index.html القديم.</p>
+      <div class="row" style="margin:14px 0">
+        <button class="btn blue" id="dlHtml">تنزيل نسخة محدّثة من الموقع</button>
+        <button class="btn ghost" id="dlJson">تصدير البيانات (JSON)</button>
+        <label class="btn ghost" style="margin:0">استيراد البيانات<input type="file" id="impJson" accept="application/json,.json" hidden></label>
+      </div>
+      <button class="btn danger small" id="resetBtn">التراجع عن كل تعديلات هذا المتصفح</button>
+    </div>
+  </div>
+</dialog>
+
+<script>
+"use strict";
+/* نحتفظ بنص الصفحة الأصلي قبل أي تعديل، لنبني منه «النسخة المحدّثة» */
+const ORIGINAL_HTML = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
+const STORE_KEY = "oman-mosques-data-v1";
+const DEFAULT_PASSWORD = "oman2026";
+const GOVS = ["مسقط","ظفار","مسندم","البريمي","الداخلية","شمال الباطنة","جنوب الباطنة","جنوب الشرقية","شمال الشرقية","الظاهرة","الوسطى"];
+const $ = (s, r=document) => r.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const paras = s => String(s || "").split(/\n+/).filter(Boolean).map(p => `<p>${esc(p)}</p>`).join("");
+
+/* ---------- تحميل البيانات: الأحدث بين المضمّن في الملف والمحفوظ في المتصفح ---------- */
+const EMBEDDED = JSON.parse($("#site-data").textContent);
+let DATA = structuredClone(EMBEDDED);
+try {
+  const saved = JSON.parse(localStorage.getItem(STORE_KEY) || "null");
+  if (saved && saved.mosques && (saved.updatedAt || 0) > (EMBEDDED.updatedAt || 0)) DATA = saved;
+} catch (e) {}
+function persist() {
+  DATA.updatedAt = Date.now();
+  try { localStorage.setItem(STORE_KEY, JSON.stringify(DATA)); return true; } catch (e) { return false; }
+}
+function hash(str) { // بصمة بسيطة لكلمة المرور (ليست حماية حقيقية)
+  let h1 = 0xdeadbeef, h2 = 0x41c6ce57;
+  for (let i = 0; i < str.length; i++) { const c = str.charCodeAt(i); h1 = Math.imul(h1 ^ c, 2654435761); h2 = Math.imul(h2 ^ c, 1597334677); }
+  h1 = Math.imul(h1 ^ (h1 >>> 16), 2246822507) ^ Math.imul(h2 ^ (h2 >>> 13), 3266489909);
+  h2 = Math.imul(h2 ^ (h2 >>> 16), 2246822507) ^ Math.imul(h1 ^ (h1 >>> 13), 3266489909);
+  return (h2 >>> 0).toString(16) + (h1 >>> 0).toString(16);
+}
+
+/* ---------- مولّد رمز QR (بدون مكتبات خارجية) ---------- */
+/*QR-START*/
+const QR = (() => {
+  // لكل إصدار بمستوى تصحيح M: [رموز التصحيح لكل كتلة، عدد كتل1، بيانات كتلة1، عدد كتل2، بيانات كتلة2]
+  const EC = {1:[10,1,16,0,0],2:[16,1,28,0,0],3:[26,1,44,0,0],4:[18,2,32,0,0],5:[24,2,43,0,0],6:[16,4,27,0,0],7:[18,4,31,0,0],8:[22,2,38,2,39],9:[22,3,36,2,37],10:[26,4,43,1,44]};
+  const ALIGN = {1:[],2:[6,18],3:[6,22],4:[6,26],5:[6,30],6:[6,34],7:[6,22,38],8:[6,24,42],9:[6,26,46],10:[6,28,50]};
+  const EXP = new Uint8Array(512), LOG = new Uint8Array(256);
+  for (let i = 0, x = 1; i < 255; i++) { EXP[i] = x; LOG[x] = i; x <<= 1; if (x & 256) x ^= 0x11d; }
+  for (let i = 255; i < 512; i++) EXP[i] = EXP[i - 255];
+  const mul = (a, b) => a && b ? EXP[LOG[a] + LOG[b]] : 0;
+  function rs(data, n) {
+    let g = [1];
+    for (let i = 0; i < n; i++) { const ng = new Array(g.length + 1).fill(0); for (let j = 0; j < g.length; j++) { ng[j] ^= g[j]; ng[j + 1] ^= mul(g[j], EXP[i]); } g = ng; }
+    const r = new Array(n).fill(0);
+    for (const d of data) { const f = d ^ r[0]; r.shift(); r.push(0); for (let j = 0; j < n; j++) r[j] ^= mul(g[j + 1], f); }
+    return r;
+  }
+  const MASKS = [(r,c)=>(r+c)%2==0,(r,c)=>r%2==0,(r,c)=>c%3==0,(r,c)=>(r+c)%3==0,(r,c)=>((r>>1)+Math.floor(c/3))%2==0,(r,c)=>(r*c)%2+(r*c)%3==0,(r,c)=>((r*c)%2+(r*c)%3)%2==0,(r,c)=>((r+c)%2+(r*c)%3)%2==0];
+  function make(text) {
+    const bytes = Array.from(new TextEncoder().encode(text));
+    let v = 0, cap = 0;
+    for (let i = 1; i <= 10; i++) { const e = EC[i]; cap = e[1]*e[2] + e[3]*e[4]; if (4 + (i < 10 ? 8 : 16) + bytes.length*8 <= cap*8) { v = i; break; } }
+    if (!v) throw new Error("النص أطول من أن يُرمَّز");
+    const bits = []; const put = (val, n) => { for (let i = n - 1; i >= 0; i--) bits.push((val >> i) & 1); };
+    put(4, 4); put(bytes.length, v < 10 ? 8 : 16); bytes.forEach(b => put(b, 8));
+    for (let i = 0; i < 4 && bits.length < cap*8; i++) bits.push(0);
+    while (bits.length % 8) bits.push(0);
+    const cw = []; for (let i = 0; i < bits.length; i += 8) cw.push(parseInt(bits.slice(i, i + 8).join(""), 2));
+    for (let p = 0; cw.length < cap; p ^= 1) cw.push(p ? 0x11 : 0xEC);
+    const e = EC[v], blocks = []; let pos = 0;
+    for (let g = 0; g < 2; g++) for (let i = 0; i < e[1 + g*2]; i++) { const d = cw.slice(pos, pos + e[2 + g*2]); pos += d.length; blocks.push({d, e: rs(d, e[0])}); }
+    const out = [];
+    for (let i = 0; i < Math.max(e[2], e[4]); i++) blocks.forEach(b => { if (i < b.d.length) out.push(b.d[i]); });
+    for (let i = 0; i < e[0]; i++) blocks.forEach(b => out.push(b.e[i]));
+    const n = 17 + 4*v, M = Array.from({length: n}, () => new Uint8Array(n)), F = Array.from({length: n}, () => new Uint8Array(n));
+    const set = (x, y, val) => { M[y][x] = val ? 1 : 0; F[y][x] = 1; };
+    const finder = (cx, cy) => { for (let dy = -4; dy <= 4; dy++) for (let dx = -4; dx <= 4; dx++) { const x = cx + dx, y = cy + dy; if (x < 0 || y < 0 || x >= n || y >= n) continue; const d = Math.max(Math.abs(dx), Math.abs(dy)); set(x, y, d != 2 && d != 4); } };
+    finder(3, 3); finder(n - 4, 3); finder(3, n - 4);
+    for (let i = 8; i < n - 8; i++) { set(i, 6, i % 2 == 0); set(6, i, i % 2 == 0); }
+    const al = ALIGN[v];
+    for (const ay of al) for (const ax of al) { if ((ax == 6 && ay == 6) || (ax == 6 && ay == n - 7) || (ax == n - 7 && ay == 6)) continue; for (let dy = -2; dy <= 2; dy++) for (let dx = -2; dx <= 2; dx++) set(ax + dx, ay + dy, Math.max(Math.abs(dx), Math.abs(dy)) != 1); }
+    const fmt = mask => { let rem = mask; for (let i = 0; i < 10; i++) rem = (rem << 1) ^ ((rem >> 9) * 0x537); const b = ((mask << 10) | rem) ^ 0x5412; const bit = i => (b >> i) & 1;
+      for (let i = 0; i <= 5; i++) set(8, i, bit(i)); set(8, 7, bit(6)); set(8, 8, bit(7)); set(7, 8, bit(8)); for (let i = 9; i < 15; i++) set(14 - i, 8, bit(i));
+      for (let i = 0; i < 8; i++) set(n - 1 - i, 8, bit(i)); for (let i = 8; i < 15; i++) set(8, n - 15 + i, bit(i)); set(8, n - 8, 1); };
+    fmt(0);
+    if (v >= 7) { let rem = v; for (let i = 0; i < 12; i++) rem = (rem << 1) ^ ((rem >> 11) * 0x1F25); const b = (v << 12) | rem; for (let i = 0; i < 18; i++) { const a = n - 11 + i % 3, c = Math.floor(i / 3), val = (b >> i) & 1; set(a, c, val); set(c, a, val); } }
+    const dbits = []; out.forEach(b => { for (let i = 7; i >= 0; i--) dbits.push((b >> i) & 1); });
+    let k = 0, up = true;
+    for (let col = n - 1; col > 0; col -= 2) { if (col == 6) col--; for (let t = 0; t < n; t++) { const y = up ? n - 1 - t : t; for (let j = 0; j < 2; j++) { const x = col - j; if (!F[y][x]) M[y][x] = dbits[k++] || 0; } } up = !up; }
+    const apply = m => { for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) if (!F[y][x] && MASKS[m](y, x)) M[y][x] ^= 1; };
+    const penalty = () => { let p = 0, dark = 0;
+      const line = get => { for (let a = 0; a < n; a++) { let run = 1; for (let b = 1; b <= n; b++) { if (b < n && get(a, b) == get(a, b - 1)) run++; else { if (run >= 5) p += run - 2; run = 1; } }
+        for (let b = 0; b + 10 < n; b++) { const s = []; for (let i = 0; i < 11; i++) s.push(get(a, b + i)); const t = s.join(""); if (t == "10111010000" || t == "00001011101") p += 40; } } };
+      line((a, b) => M[a][b]); line((a, b) => M[b][a]);
+      for (let y = 0; y < n - 1; y++) for (let x = 0; x < n - 1; x++) { const c = M[y][x]; if (c == M[y][x+1] && c == M[y+1][x] && c == M[y+1][x+1]) p += 3; }
+      for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) dark += M[y][x];
+      return p + Math.floor(Math.abs(dark * 20 / (n * n) - 10)) * 10; };
+    let best = 0, bestP = Infinity;
+    for (let m = 0; m < 8; m++) { apply(m); fmt(m); const p = penalty(); if (p < bestP) { bestP = p; best = m; } apply(m); }
+    apply(best); fmt(best);
+    return M;
+  }
+  function draw(canvas, text, scale = 8) {
+    const m = make(text), n = m.length, q = 4;
+    canvas.width = canvas.height = (n + q*2) * scale;
+    const ctx = canvas.getContext("2d"); ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, canvas.width, canvas.height); ctx.fillStyle = "#000";
+    for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) if (m[y][x]) ctx.fillRect((x + q) * scale, (y + q) * scale, scale, scale);
+  }
+  return {make, draw};
+})();
+/*QR-END*/
+
+/* ---------- الروابط ---------- */
+function baseUrl() {
+  const s = (DATA.settings.baseUrl || "").trim();
+  if (s) return s.split("#")[0];
+  return /^https?:/.test(location.protocol) ? location.href.split("#")[0] : "";
+}
+const mosqueUrl = id => baseUrl() ? baseUrl() + "#m-" + id : "";
+
+/* ---------- الصور والفيديو مع بديل عند غياب الملف ---------- */
+const img = (src, alt) => src ? `<img src="${esc(src)}" alt="${esc(alt)}" loading="lazy" data-ph>` : ph("صورة", "");
+function ph(kind, src) {
+  return `<div class="ph"><b>أضف ${kind === "فيديو" ? "الفيديو" : "الصورة"} هنا</b>${src ? `<code>${esc(src)}</code>` : "<span>من لوحة المشرف</span>"}</div>`;
+}
+document.addEventListener("error", e => {
+  const t = e.target;
+  if (t instanceof HTMLImageElement && t.hasAttribute("data-ph")) t.outerHTML = ph("صورة", t.getAttribute("src"));
+  else if (t instanceof HTMLVideoElement && t.hasAttribute("data-ph")) t.outerHTML = ph("فيديو", t.getAttribute("src"));
+}, true);
+
+/* ---------- عرض الصفحة ---------- */
+const byId = id => DATA.mosques.find(m => m.id === id);
+function winCard(m) {
+  return `<button class="win" data-open="${esc(m.id)}">
+    <div class="arch">${img(m.images?.[0], m.name)}</div>
+    <h3>${esc(m.name)}</h3>
+    <p class="place">${esc(m.wilayat)}، ${esc(m.governorate)}</p>
+    <p class="built">${esc(m.built || "")}</p>
+    ${m.restored ? '<span class="tag">مرمّم</span>' : ""}
+  </button>`;
+}
+function render() {
+  const S = DATA.settings;
+  $("#intro").textContent = S.intro;
+  const h = $("#heroImg"); if (h && S.hero) h.src = S.hero;
+  for (const k of ["history", "restoration", "gallery"]) {
+    const on = S.show?.[k] !== false;
+    $("#" + k).classList.toggle("hidden", !on);
+    document.querySelectorAll(`[data-sec="${k}"]`).forEach(a => a.classList.toggle("hidden", !on));
+  }
+  $("#strip").innerHTML = DATA.mosques.map(m => `<button data-open="${esc(m.id)}"><div class="arch">${img(m.images?.[0], m.name)}</div><span>${esc(m.name)}</span></button>`).join("");
+  $("#timeline").innerHTML = [...DATA.mosques].sort((a, b) => (a.sortYear || 9999) - (b.sortYear || 9999)).map(m =>
+    `<li><time>${esc(m.built || "تاريخ البناء يُضاف لاحقًا")}</time><h3>${esc(m.name)}، ${esc(m.wilayat)}</h3><p>${esc((m.history || "").split("\n")[0])}</p><button data-open="${esc(m.id)}">افتح نافذة المسجد</button></li>`).join("");
+  const gov = $("#gov"), cur = gov.value;
+  gov.innerHTML = '<option value="">كل المحافظات</option>' + [...new Set(DATA.mosques.map(m => m.governorate))].map(g => `<option>${esc(g)}</option>`).join("");
+  gov.value = cur; if (gov.selectedIndex < 0) gov.value = "";
+  renderGrid();
+  const rest = DATA.mosques.filter(m => m.restored);
+  $("#resto").innerHTML = rest.length ? rest.map(m => { const r = m.restoration || {}; return `<article>
+      <div>
+        <h3>${esc(m.name)}</h3>
+        <dl><dt>الموقع: </dt><dd>${esc(m.wilayat)}، ${esc(m.governorate)}</dd><dt>تاريخ الترميم: </dt><dd>${esc(r.date || "يُضاف لاحقًا")}</dd><dt>الجهة المنفذة: </dt><dd>${esc(r.by || "تُضاف لاحقًا")}</dd></dl>
+        ${paras(r.work)}
+        <button class="btn blue small" data-open="${esc(m.id)}">افتح نافذة المسجد</button>
+      </div>
+      <div>
+        <div class="ba"><div class="after">${img(r.after, m.name + " بعد الترميم")}</div><div class="before">${img(r.before, m.name + " قبل الترميم")}</div><span class="lab b">قبل</span><span class="lab a">بعد</span></div>
+        <input class="ba-range" type="range" min="0" max="100" value="50" aria-label="المقارنة بين قبل الترميم وبعده">
+      </div></article>`; }).join("") : '<p class="empty">لم تُضف مساجد مرمّمة بعد. أضفها من لوحة المشرف.</p>';
+  const pics = DATA.mosques.flatMap(m => (m.images || []).map(src => ({src, cap: m.name})));
+  $("#gal").innerHTML = pics.map(p => `<figure><button data-zoom="${esc(p.src)}" data-cap="${esc(p.cap)}">${img(p.src, p.cap)}</button><figcaption>${esc(p.cap)}</figcaption></figure>`).join("");
+  const vids = DATA.mosques.filter(m => m.video);
+  $("#vids").innerHTML = vids.map(m => `<figure style="margin:0"><video controls preload="metadata" src="${esc(m.video)}" data-ph></video><figcaption>${esc(m.name)}</figcaption></figure>`).join("");
+  const sq = $("#siteQr");
+  if (baseUrl()) { QR.draw(sq, baseUrl(), 6); sq.classList.remove("hidden"); $("#siteQrNote").textContent = "امسح الرمز لفتح الموقع"; }
+  else { sq.classList.add("hidden"); $("#siteQrNote").textContent = "يظهر رمز الموقع بعد رفعه أو إدخال رابطه من لوحة المشرف."; }
+}
+function renderGrid() {
+  const q = $("#q").value.trim(), g = $("#gov").value, r = $("#onlyRest").checked;
+  const list = DATA.mosques.filter(m => (!g || m.governorate === g) && (!r || m.restored) && (!q || [m.name, m.wilayat, m.governorate, m.place].join(" ").includes(q)));
+  $("#grid").innerHTML = list.length ? list.map(winCard).join("") : '<p class="empty" style="grid-column:1/-1">لا يوجد مسجد يطابق البحث. غيّر الكلمة أو المحافظة.</p>';
+}
+
+/* ---------- نافذة المسجد ---------- */
+function openMosque(id, push = true) {
+  const m = byId(id); if (!m) return;
+  const r = m.restoration || {}, url = mosqueUrl(m.id);
+  $("#mTitle").textContent = m.name;
+  $("#mBody").innerHTML = `
+    <dl class="facts">
+      <div><dt>الموقع</dt><dd>${esc([m.place, m.wilayat, m.governorate].filter(Boolean).join("، "))}</dd></div>
+      <div><dt>تاريخ البناء</dt><dd>${esc(m.built || "يُضاف لاحقًا")}</dd></div>
+      <div><dt>من بناه</dt><dd>${esc(m.builder || "يُضاف لاحقًا")}</dd></div>
+    </dl>
+    <h3>تاريخ المسجد</h3>${paras(m.history) || "<p>يُضاف لاحقًا</p>"}
+    <h3>المميزات المعمارية</h3>${paras(m.features) || "<p>تُضاف لاحقًا</p>"}
+    ${m.restored ? `<h3>الترميم</h3><p><b>التاريخ:</b> ${esc(r.date || "يُضاف لاحقًا")}<br><b>الجهة المنفذة:</b> ${esc(r.by || "تُضاف لاحقًا")}</p>${paras(r.work)}` : ""}
+    <h3>الصور</h3>
+    <div class="m-gallery">${(m.images || []).length ? m.images.map(s => `<button data-zoom="${esc(s)}" data-cap="${esc(m.name)}">${img(s, m.name)}</button>`).join("") : ph("صورة", "")}</div>
+    <h3>الفيديو</h3>
+    ${m.video ? `<video controls preload="metadata" src="${esc(m.video)}" data-ph style="width:100%;background:#000"></video>` : ph("فيديو", "")}
+    <h3>رمز QR للمسجد</h3>
+    <div class="qr-box">${url ? `<canvas id="mQr" aria-label="رمز QR لصفحة ${esc(m.name)}"></canvas>
+      <div><p>امسح الرمز لفتح نافذة هذا المسجد مباشرة. يصلح للطباعة على لوحة تعريفية عند المسجد.</p><p class="url">${esc(url)}</p>
+      <div class="row"><button class="btn blue small" id="qrDl">تنزيل الرمز PNG</button><button class="btn ghost small" id="qrPrint">طباعة الرمز</button></div></div>`
+      : '<p class="note" style="margin:0">يظهر الرمز بعد رفع الموقع على الإنترنت، أو بعد إدخال رابط الموقع في لوحة المشرف (إعدادات الموقع).</p>'}</div>`;
+  if (url) {
+    QR.draw($("#mQr"), url, 10);
+    $("#qrDl").onclick = () => { const a = document.createElement("a"); a.href = $("#mQr").toDataURL("image/png"); a.download = "qr-" + m.id + ".png"; a.click(); };
+    $("#qrPrint").onclick = () => { const w = window.open("", "_blank"); if (!w) return;
+      w.document.write(`<html dir="rtl"><title>${esc(m.name)}</title><body style="text-align:center;font-family:serif"><h1>${esc(m.name)}</h1><p>${esc(m.wilayat)}، ${esc(m.governorate)}</p><img src="${$("#mQr").toDataURL()}" style="width:320px"><p>المساجد الأثرية في عُمان</p></body></html>`);
+      w.document.close(); w.onload = () => w.print(); setTimeout(() => w.print(), 400); };
+  }
+  const d = $("#mosqueDlg"); if (!d.open) d.showModal(); d.scrollTop = 0;
+  if (push) history.replaceState(null, "", "#m-" + m.id);
+}
+$("#mosqueDlg").addEventListener("close", () => { if (location.hash.startsWith("#m-")) history.replaceState(null, "", location.pathname + location.search); });
+function fromHash() { if (location.hash.startsWith("#m-")) openMosque(decodeURIComponent(location.hash.slice(3)), false); }
+window.addEventListener("hashchange", fromHash);
+
+/* ---------- أحداث عامة ---------- */
+document.addEventListener("click", e => {
+  const o = e.target.closest("[data-open]"); if (o) { openMosque(o.dataset.open); return; }
+  const z = e.target.closest("[data-zoom]"); if (z) { $("#lbBody").innerHTML = img(z.dataset.zoom, z.dataset.cap); $("#lbCap").textContent = z.dataset.cap; $("#lightbox").showModal(); return; }
+  const c = e.target.closest("[data-close]"); if (c) { c.closest("dialog").close(); return; }
+  if (e.target instanceof HTMLDialogElement) e.target.close(); // الضغط خارج النافذة
+});
+document.addEventListener("input", e => { if (e.target.classList.contains("ba-range")) e.target.previousElementSibling.style.setProperty("--p", e.target.value + "%"); });
+["input", "change"].forEach(ev => { $("#q").addEventListener(ev, renderGrid); $("#gov").addEventListener(ev, renderGrid); $("#onlyRest").addEventListener(ev, renderGrid); });
+
+/* ---------- المشرف ---------- */
+let authed = false;
+const say = t => { $("#adMsg").textContent = t; };
+$("#adminBtn").onclick = () => { if (authed) openAdmin(); else { $("#loginErr").classList.add("hidden"); $("#pass").value = ""; $("#loginDlg").showModal(); } };
+$("#loginForm").onsubmit = e => { e.preventDefault();
+  if (hash($("#pass").value) === (DATA.settings.passHash || hash(DEFAULT_PASSWORD))) { authed = true; $("#loginDlg").close(); openAdmin(); }
+  else $("#loginErr").classList.remove("hidden"); };
+function openAdmin() { say(""); fillAdmin(); tab("tList"); $("#adminDlg").showModal(); }
+function tab(id) {
+  for (const t of ["tList", "tEdit", "tSet", "tData"]) $("#" + t).classList.toggle("hidden", t !== id);
+  document.querySelectorAll(".tabs button").forEach(b => b.setAttribute("aria-selected", b.dataset.tab === id));
+}
+document.querySelectorAll(".tabs button").forEach(b => b.onclick = () => { if (b.dataset.tab === "tEdit") editMosque(null); say(""); tab(b.dataset.tab); });
+function fillAdmin() {
+  $("#adRows").innerHTML = DATA.mosques.map((m, i) => `<tr><td>${esc(m.name)}</td><td>${esc(m.wilayat)}</td><td>${m.restored ? "نعم" : "لا"}</td>
+    <td><button class="btn ghost small" data-act="up" data-i="${i}" aria-label="تقديم ${esc(m.name)}">▲</button> <button class="btn ghost small" data-act="down" data-i="${i}" aria-label="تأخير ${esc(m.name)}">▼</button>
+    <button class="btn blue small" data-act="edit" data-i="${i}">تعديل</button> <button class="btn danger small" data-act="del" data-i="${i}">حذف</button></td></tr>`).join("") || '<tr><td colspan="4">لا توجد مساجد. أضف أول مسجد من تبويب «إضافة مسجد».</td></tr>';
+  $("#f_governorate").innerHTML = GOVS.map(g => `<option>${g}</option>`).join("");
+  const S = DATA.settings;
+  $("#s_intro").value = S.intro || ""; $("#s_hero").value = S.hero || ""; $("#s_base").value = S.baseUrl || ""; $("#s_pass").value = "";
+  for (const k of ["history", "restoration", "gallery"]) $("#s_" + k).checked = S.show?.[k] !== false;
+}
+$("#adRows").onclick = e => {
+  const b = e.target.closest("[data-act]"); if (!b) return; const i = +b.dataset.i, L = DATA.mosques;
+  if (b.dataset.act === "edit") { editMosque(L[i]); tab("tEdit"); return; }
+  if (b.dataset.act === "del") { if (b.dataset.sure) { const n = L[i].name; L.splice(i, 1); commit("حُذف «" + n + "»."); } else { b.dataset.sure = 1; b.textContent = "تأكيد الحذف"; } return; }
+  const j = b.dataset.act === "up" ? i - 1 : i + 1; if (j < 0 || j >= L.length) return;
+  [L[i], L[j]] = [L[j], L[i]]; commit("تغيّر الترتيب.");
+};
+function commit(text) { const ok = persist(); render(); fillAdmin(); say(ok ? text : text + " تعذّر الحفظ في المتصفح، فنزّل النسخة المحدّثة قبل إغلاق الصفحة."); }
+function editMosque(m) {
+  const r = m?.restoration || {};
+  $("#f_id").value = m?.id || ""; $("#f_name").value = m?.name || ""; $("#f_governorate").value = m?.governorate || "الداخلية";
+  $("#f_wilayat").value = m?.wilayat || ""; $("#f_place").value = m?.place || ""; $("#f_built").value = m?.built || ""; $("#f_sortYear").value = m?.sortYear || "";
+  $("#f_builder").value = m?.builder || ""; $("#f_history").value = m?.history || ""; $("#f_features").value = m?.features || "";
+  $("#f_images").value = (m?.images || []).join("\n"); $("#f_video").value = m?.video || ""; $("#f_restored").checked = !!m?.restored;
+  $("#f_rdate").value = r.date || ""; $("#f_rby").value = r.by || ""; $("#f_rwork").value = r.work || ""; $("#f_rbefore").value = r.before || ""; $("#f_rafter").value = r.after || "";
+  $("#pickImgs").value = ""; $("#pickVid").value = "";
+  document.querySelector('.tabs [data-tab="tEdit"]').textContent = m ? "تعديل مسجد" : "إضافة مسجد";
+}
+$("#pickImgs").onchange = e => { const t = $("#f_images"); const add = [...e.target.files].map(f => "images/" + f.name); t.value = [t.value.trim(), ...add].filter(Boolean).join("\n"); };
+$("#pickVid").onchange = e => { if (e.target.files[0]) $("#f_video").value = "videos/" + e.target.files[0].name; };
+$("#cancelEdit").onclick = () => { tab("tList"); document.querySelector('.tabs [data-tab="tEdit"]').textContent = "إضافة مسجد"; };
+$("#tEdit").onsubmit = e => { e.preventDefault();
+  const v = id => $("#" + id).value.trim(), id = v("f_id");
+  const m = { id: id || "m" + Date.now().toString(36), name: v("f_name"), governorate: v("f_governorate"), wilayat: v("f_wilayat"), place: v("f_place"), built: v("f_built"),
+    sortYear: +v("f_sortYear") || 0, builder: v("f_builder"), history: v("f_history"), features: v("f_features"),
+    images: v("f_images").split(/\n+/).map(s => s.trim()).filter(Boolean), video: v("f_video"), restored: $("#f_restored").checked,
+    restoration: { date: v("f_rdate"), by: v("f_rby"), work: v("f_rwork"), before: v("f_rbefore"), after: v("f_rafter") } };
+  const i = DATA.mosques.findIndex(x => x.id === id);
+  if (i >= 0) DATA.mosques[i] = m; else DATA.mosques.push(m);
+  commit("حُفظ «" + m.name + "»."); tab("tList"); document.querySelector('.tabs [data-tab="tEdit"]').textContent = "إضافة مسجد";
+};
+$("#tSet").onsubmit = e => { e.preventDefault(); const S = DATA.settings;
+  S.intro = $("#s_intro").value.trim(); S.hero = $("#s_hero").value.trim(); S.baseUrl = $("#s_base").value.trim();
+  S.show = { history: $("#s_history").checked, restoration: $("#s_restoration").checked, gallery: $("#s_gallery").checked };
+  if ($("#s_pass").value) S.passHash = hash($("#s_pass").value);
+  commit("حُفظت الإعدادات."); };
+function download(name, text, type) { const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([text], {type})); a.download = name; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 2000); }
+$("#dlJson").onclick = () => { download("mosques-data.json", JSON.stringify(DATA, null, 1), "application/json"); say("صُدّرت البيانات."); };
+$("#dlHtml").onclick = () => { persist();
+  const json = JSON.stringify(DATA, null, 1).replace(/</g, "\\u003c");
+  const html = ORIGINAL_HTML.replace(/(<script type="application\/json" id="site-data">)[\s\S]*?(<\/script>)/, (_, a, b) => a + "\n" + json + "\n" + b);
+  download("index.html", html, "text/html"); say("نُزّلت النسخة المحدّثة. ارفعها مكان ملف index.html القديم."); };
+$("#impJson").onchange = async e => { const f = e.target.files[0]; if (!f) return;
+  try { const d = JSON.parse(await f.text()); if (!Array.isArray(d.mosques) || !d.settings) throw 0; DATA = d; commit("استُوردت البيانات."); }
+  catch (x) { say("الملف ليس ملف بيانات صالحًا لهذا الموقع. اختر ملف JSON سبق تصديره من هنا."); }
+  e.target.value = ""; };
+$("#resetBtn").onclick = e => { const b = e.currentTarget;
+  if (!b.dataset.sure) { b.dataset.sure = 1; b.textContent = "تأكيد التراجع"; return; }
+  delete b.dataset.sure; b.textContent = "التراجع عن كل تعديلات هذا المتصفح";
+  try { localStorage.removeItem(STORE_KEY); } catch (x) {}
+  DATA = structuredClone(EMBEDDED); render(); fillAdmin(); say("أُعيدت البيانات إلى ما في الملف."); };
+
+render();
+fromHash();
+</script>
+</body>
+</html>
